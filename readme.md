@@ -1,5 +1,5 @@
 
-# REST API with Lumen 5.5 [![Build Status](https://travis-ci.org/hasib32/rest-api-with-lumen.svg?branch=master)](https://travis-ci.org/hasib32/rest-api-with-lumen)
+# REST API with Lumen 5.7 [![Build Status](https://travis-ci.org/hasib32/rest-api-with-lumen.svg?branch=master)](https://travis-ci.org/hasib32/rest-api-with-lumen)
 
 A RESTful API boilerplate for Lumen micro-framework. Features included:
 
@@ -156,7 +156,7 @@ class Message extends Model
 }
 ```
 
-Visit Laravel [Eloquent](https://laravel.com/docs/5.5/eloquent) Page for more info about Model.
+Visit Laravel [Eloquent](https://laravel.com/docs/5.7/eloquent) Page for more info about Model.
 
 **Create migration for messages table**
 

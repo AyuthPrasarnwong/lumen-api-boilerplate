@@ -24,13 +24,33 @@ First, clone the repo:
 $ git clone https://github.com/AyuthPrasarnwong/lumen-api-boilerplate.git
 ```
 
-#### Laravel Homestead
-You can use Laravel Homestead globally or per project for local development. Follow the [Installation Guide](https://laravel.com/docs/5.5/homestead#installation-and-setup).
+#### Requirements
+
+To run this application on your machine, you need at least:
+
+* docker
+
+Run the docker for development:
+---------------------
+First you need to copy `.env.example` to `.env` for setup environment of appplication
+
+To start the application and run the containers in the background, use following command inside project root:
+
+```bash
+docker-compose up -d
+```
+
+To stop all containers, use following command inside project root:
+
+```bash
+docker-compose down
+```
 
 #### Install dependencies
 ```
-$ cd lumen-api-boilerplate
-$ composer install
+cd lumen-api-boilerplate
+docker exec -it lumen-api-app bash
+composer install
 ```
 
 #### Configure the Environment

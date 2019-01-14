@@ -42,32 +42,32 @@ docker-compose up -d
 To stop all containers, use following command inside project root:
 
 ```bash
-docker-compose down
+$ docker-compose down
 ```
 
 #### Install dependencies
 ```
-cd lumen-api-boilerplate
-docker exec -it lumen-api-app bash
-composer install
+$ cd lumen-api-boilerplate
+$ docker exec -it lumen-api-app bash
+$ composer install
 ```
 
 #### Configure the Environment
 Create `.env` file:
 ```
-$ cat .env.example > .env
+$ cp .env.example .env
 ```
 If you want you can edit database name, database username and database password.
 
 #### Migrations and Seed the database with fake data
 Run the migration artisan command:
 ```bash
-docker exec -it lumen-api-gateway-db bash  
-mysql -u root -p
-GRANT ALL ON laravel.* TO 'homestead'@'%' IDENTIFIED BY 'secret';
-FLUSH PRIVILEGES;
-EXIT;
-docker exec -it lumen-api-gateway-app php artisan migrate:refresh --seed
+$ docker exec -it lumen-api-gateway-db bash  
+$ mysql -u root -p
+$ GRANT ALL ON laravel.* TO 'homestead'@'%' IDENTIFIED BY 'secret';
+$ FLUSH PRIVILEGES;
+$ EXIT;
+$ docker exec -it lumen-api-gateway-app php artisan migrate:refresh --seed
 ```
 
 Run the Artisan migrate command with seed:

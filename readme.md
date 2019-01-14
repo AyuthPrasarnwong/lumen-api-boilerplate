@@ -21,7 +21,7 @@ A RESTful API boilerplate for Lumen micro-framework. Features included:
 ## Getting Started
 First, clone the repo:
 ```bash
-$ git clone git@github.com:hasib32/rest-api-with-lumen.git
+$ git clone https://github.com/AyuthPrasarnwong/lumen-api-boilerplate.git
 ```
 
 #### Laravel Homestead
@@ -29,7 +29,7 @@ You can use Laravel Homestead globally or per project for local development. Fol
 
 #### Install dependencies
 ```
-$ cd rest-api-with-lumen
+$ cd lumen-api-boilerplate
 $ composer install
 ```
 
@@ -41,19 +41,14 @@ $ cat .env.example > .env
 If you want you can edit database name, database username and database password.
 
 #### Migrations and Seed the database with fake data
-First, we need connect to the database. For homestead user, login using default homestead username and password:
+Run the migration artisan command:
 ```bash
-$ mysql -uhomestead -psecret
-```
-
-Then create a database:
-```bash
-mysql> CREATE DATABASE restapi;
-```
-
-And also create test database:
-```bash
-mysql> CREATE DATABASE restapi_test;
+docker exec -it lumen-api-gateway-db bash  
+mysql -u root -p
+GRANT ALL ON laravel.* TO 'homestead'@'%' IDENTIFIED BY 'secret';
+FLUSH PRIVILEGES;
+EXIT;
+docker exec -it lumen-api-gateway-app php artisan migrate:refresh --seed
 ```
 
 Run the Artisan migrate command with seed:

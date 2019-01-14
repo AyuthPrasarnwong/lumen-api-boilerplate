@@ -1,23 +1,71 @@
-version: '2.3'
-
+version: '3'
 services:
-  rest-api-app:
-    image: maxca789/apachephp72composer
-    container_name: rest-api-lumen
-    ports:
-      - "8021:80"
-    volumes:
-      - .:/var/www/html/
-     # - ./docker/vhost/:/etc/apache2/sites-available/
-    networks:
-      - rest-api
-      - mysql_mysqlnetwork
-    environment:
-      - CONTAINER_TIMEZONE=Asia/Bangkok
-      - VIRTUAL_HOST=local-vhost.dev
 
+  #PHP Service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: enro/php7.2
+    container_name: lumen-api-app
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+      - ./docker-compose/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - default
+
+  #Nginx Service
+  webserver:
+    image: nginx:alpine
+    container_name: lumen-api-webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8088:80"
+    volumes:
+      - .:/var/www
+      - ./docker-compose/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - default
+
+  #MySQL Service
+  db:
+    image: mysql:5.7.22
+    container_name: lumen-api-db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "33088:3306"
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_ROOT_PASSWORD: your_mysql_root_password
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - mysql:/var/lib/mysql/
+      - ./docker-compose/mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - default
+
+  #Redis Service
+  redis:
+    image: redis:alpine
+    container_name: lumen-api-redis
+    networks:
+      - default
+
+#Docker Networks
 networks:
-  rest-api:
+  default:
     driver: bridge
-  mysql_mysqlnetwork:
-    external: true
+
+#Volumes
+volumes:
+  mysql:
+    driver: local
